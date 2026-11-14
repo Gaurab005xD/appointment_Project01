@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Palette built around #00CCCC.
+   #00CCCC itself is too light for white text (≈2:1), so it is used
+   for accents and highlights; buttons and links use the deeper
+   shades, which pass WCAG AA contrast with white.
+   --------------------------------------------------------------- */
+@theme {
+    --color-brand: #00cccc;
+    --color-brand-50: #effcfc;
+    --color-brand-100: #d5f6f6;
+    --color-brand-200: #a8eded;
+    --color-brand-300: #66dfdf;
+    --color-brand-600: #008a8c;
+    --color-brand-700: #006f72;
+    --color-brand-800: #035659;
+    --color-ink: #072b2e;
+    --color-ink-soft: #46666a;
+    --color-paper: #f7fbfb;
+    --color-line: #d3e6e7;
+    --color-sun: #ffd166;
+    --color-danger: #b42318;
+
+    --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+    --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+    outline: 3px solid var(--color-brand-600);
+    outline-offset: 2px;
+}
+
+@layer components {
+    .form-input {
+        @apply w-full rounded-lg border border-line bg-white px-3 py-2.5 text-ink outline-none transition placeholder:text-ink-soft/60 focus:border-brand-600 focus:ring-4 focus:ring-brand-100 aria-[invalid=true]:border-danger aria-[invalid=true]:ring-red-100;
+    }
+
+    .form-label {
+        @apply mb-1.5 block text-sm font-semibold text-ink;
+    }
+
+    .form-error {
+        @apply mt-1.5 text-sm font-medium text-danger;
+    }
+
+    .primary-button {
+        @apply inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-700 px-5 py-3 font-semibold text-white transition hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .secondary-button {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg border border-brand-700 bg-white px-5 py-3 font-semibold text-brand-700 transition hover:bg-brand-50;
+    }
+
+    .text-link {
+        @apply font-semibold text-brand-700 underline decoration-brand-300 decoration-2 underline-offset-4 hover:decoration-brand-700;
+    }
+
+    .panel {
+        @apply rounded-2xl border border-line bg-white;
+    }
+
+    .page-shell {
+        @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+    }
+
+    /* Tabular figures for times, prices and dates */
+    .figures {
+        font-variant-numeric: tabular-nums;
+    }
+}
